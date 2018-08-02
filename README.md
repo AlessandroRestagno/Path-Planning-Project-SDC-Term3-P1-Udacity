@@ -12,6 +12,17 @@ Each waypoint in the list contains  [x,y,s,dx,dy] values. x and y are the waypoi
 
 The highway's waypoints loop around so the frenet s value, distance along the road, goes from 0 to 6945.554.
 
+## Path Planning
+
+### Prediction and decision
+In the 'main.cpp' file (lines 352:541)
+
+### Trajectory Generation
+In the 'main.cpp' file (lines 549:653)
+
+### Reflections
+
+
 ## Basic Build Instructions
 
 1. Clone this repo.
