@@ -15,7 +15,10 @@ The highway's waypoints loop around so the frenet s value, distance along the ro
 ## Path Planning
 
 ### Prediction and decision
-In the 'main.cpp' file (lines 352:541)
+In the 'main.cpp' file (lines 352:541). Using sensor fusion data, I check where other cars are. The first step is checking which lane are available and which have cars. I used to different varibale 'lane_free' and 'lane_available'. If 'lane_free' is true, it means that in that lane there is any car 100m in front of the car and any car 15m behind the car.  'lane_available' is true, when the car in front of me is at a greater distance that the safety distance. To calculate the safety distance, I implemented this line of code:
+'''
+double safety_dist = (ref_vel + ((ref_vel) * (ref_vel) / 20)) * 0.3048;
+'''
 
 ### Trajectory Generation
 In the 'main.cpp' file (lines 549:653)
