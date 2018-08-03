@@ -15,13 +15,19 @@ The highway's waypoints loop around so the frenet s value, distance along the ro
 ## Path Planning
 
 ### Prediction and decision
-In the `main.cpp` file (lines 352:541). Using sensor fusion data, I check where other cars are. The first step is checking which lane are available and which have cars. I used to different varibale `lane_free` and `lane_available`. If `lane_free` is true, it means that in that lane there is any car 100m in front of the car and any car 15m behind the car.  `lane_available` is true, when the car in front of me is at a greater distance that the safety distance. To calculate the safety distance, I implemented this line of code:
+In the `main.cpp` file (lines 352:541). Using sensor fusion data, I check where other cars are. The first step is checking which lane are available and which have cars. I used to different varibale `lane_free` and `lane_available`. If `lane_free` is true, it means that in that lane there is any car 100m in front of the car and any car 15m behind the car.  `lane_available` is true, when the car in front of me is at a greater distance that the safety distance and car behind me is at more than 10 meters. To calculate the safety distance, I implemented this line of code:
 ```
 double safety_dist = (ref_vel + ((ref_vel) * (ref_vel) / 20)) * 0.3048;
 ```
+If any car in fronto of me in my actual lane (plus one meter each side) is closest than the safety distance, the variable `too_close` becomes true and the car decellerate of 0.25mph. If there is no car in this safety space, the car accelarete by 0.25mph, but it can't go faster than the speed limit (50 mph).
+
+Two situation can lead to a lane change of the car. First situation, if the central lane is completely free (indeed `lane_free[1]` is true), car should move to the central lane. 
+The second situation it happens when the variable `too_close` is true. In this case, the car checks if the side lanes are available and, if they are available, move to the side lane. In case that the side lane are not available (but the opposite lanes are) and she is either in the right lane or the left lane, it starts a procedure called "move_two_lanes". In this case, the car slow down till 35 mph and it's constantly looking to find a space to move to the center (and then to the opposite lane).
+In the case that all 3 lanes are filled with cars the simulator prints "walt...".
+To avoid zig zagging, when the car decides to change lane, the variable `lane_changing` is set to true and for 150 frames (around 3 seconds) the car can't change lane again.
 
 ### Trajectory Generation
-In the 'main.cpp' file (lines 549:653)
+In the 'main.cpp' file (lines 549:653). I followed the instructions of the project walkthrough video and i used a spline. The header file is here: [spline.h](src/spline.h).
 
 ### Reflections
 
