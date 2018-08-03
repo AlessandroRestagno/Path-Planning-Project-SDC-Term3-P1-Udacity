@@ -30,6 +30,9 @@ To avoid zig zagging, when the car decides to change lane, the variable `lane_ch
 In the 'main.cpp' file (lines 549:653). I followed the instructions of the project walkthrough video and i used a spline. The header file is here: [spline.h](src/spline.h).
 
 ### Reflections
+It was a very fun project. I spent a lot of time tweacking all the parameters to get the car ride around the track without accident.
+At the begininng, I wanted to augment the number of waypoints around the track. One every 30 meters looked like way too little for me. You can see how I used spline to augemnt the number of waypoints (lines 210:294). At the end, it was a waste of time, because I didn't obtain a better accuracy and, continuing workiong on the project, I found that the number of waypoints was ok.
+After that I focused on improve prediction and decision of the car. I started from considering the safety distance. If the car was too close to other cars, the car would decellerate reduced his speed. After that I would look for moving the car in the other lanes and overtake the cars. I didn't used a cost function for each lane, because I found that the car was driving ok in the track even without considering speed of other cars, but just considering free space. To improve this project, I would introduce a target speed and implement it in the code.
 
 
 ## Basic Build Instructions
